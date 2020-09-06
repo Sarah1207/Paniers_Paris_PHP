@@ -127,6 +127,14 @@ if (!userConnect()) {
 
   $content .= "</table>";
 
+} else if  (!isset($_SESSION["commande"]) && userConnect()) {
+
+  $content .= "<table>";
+
+  $content .= "<tr> <td> <a href='paniersdumois.php'> Découvrir les paniers du mois</a> </td> </tr>";
+
+  $content .= "</table>";
+
 } else if (isset($_SESSION["commande"]) ) {
 
   $content .= "<table>";
@@ -148,8 +156,6 @@ if (!userConnect()) {
     $content .= "<td>" . $_SESSION["commande"]["quantite"][$i] . "</td>";
     $content .= "<td>" . $_SESSION["commande"]["prix_panier"][$i] . " &#128;" . "</td>";
     $content .= "<td>" . $_SESSION["commande"]["prix_panier"][$i] * $_SESSION["commande"]["quantite"][$i]  . " &#128;" . "</td>";
-
-
 
     /**************************** suppression d'une ligne de la commande $_GET *******************************/
     $content .= "<td>"
