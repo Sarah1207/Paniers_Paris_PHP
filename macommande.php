@@ -118,13 +118,11 @@ if (isset($_GET["action"]) && $_GET["action"] == "suppression_panier") {
 
 
 
-
 /****************************** AFFICHAGE DU TABLEAU AVEC SESSION ********************************** */
-if (!userConnect() || !isset($_SESSION["commande"]) ) {
+if (!userConnect()) {
 
   $content .= "<table>";
 
-    $content .= "<tr> <td> <a href='paniersdumois.php'> Cliquer ici </a> pour découvrir les Paniers du Mois </a> </td> </tr>";
     $content .= "<tr> <td> <a href='compte.php'> Se connecter </a> ou <a href='compte.php'> Créer un compte </a> </td> </tr>";
 
   $content .= "</table>";
