@@ -49,13 +49,13 @@ if (isset($_POST["payer"]) ) {
 
   for ($i = 0; $i < count($_SESSION["commande"]["id_panier"]); $i++) {
 
-    $r = execute_requete("INSERT INTO commande (id_membre, id_panier, quantite, prix)   
+    $r = execute_requete("INSERT INTO commande (id_membre,id_panier, quantite, prix)   
     VALUES("
       . $_SESSION['membre']['id_membre'] . ","
       . $_SESSION['commande']['id_panier'][$i] . ","
       . $_SESSION['commande']['quantite'][$i] . ","
-      . $_SESSION['commande']['prix_panier'][$i] * $_SESSION['commande']['quantite'][$i]
-      .  ") ");
+      . $_SESSION['commande']['prix_panier'][$i] * $_SESSION['commande']['quantite'][$i] 
+      . ") ");
 
     $last_id = $pdo-> lastInsertId();
 
@@ -81,14 +81,6 @@ if (isset($_POST["payer"]) ) {
               Nous vous invitons à retirer vos achats dans notre boutique à l'accueil <br> Click & Collect. 
               <br> <br>
               <i class='fas fa-exclamation'></i> &nbsp; <u> Référence commande : <u> N° $last_id 
-              </p>
-
-              <p class='apres_commande'>
-              <i class='fas fa-long-arrow-alt-right'></i> &nbsp;  <a href='contact.php'>Voir l'adresse </a>
-              <br> 
-              <i class='fas fa-long-arrow-alt-right'></i> &nbsp; <a href='paniersdumois.php'>Nouvelle commande </a>
-              <br> 
-              <i class='fas fa-long-arrow-alt-right'></i> &nbsp; <a href='index.php'> Retour à l'accueil </a>
               </p>";
 //fermeture if 
 }
@@ -98,14 +90,10 @@ if (isset($_POST["payer"]) ) {
 
 
 /**************************** SUPPRESSION COMMANDE ENTIERE *********************************** */
-
 if (isset($_GET["action"]) && $_GET["action"] =='vider' ) {
   unset ($_SESSION["commande"]);
 }
-
 /**************************** FIN SUPPRESSION COMMANDE ENTIERE *********************************** */
-
-
 
 
 /**************************** SUPPRESSION D'UNE LIGNE *********************************** */
@@ -114,8 +102,6 @@ if (isset($_GET["action"]) && $_GET["action"] == "suppression_panier") {
   $content .= "<h4> Votre sélection a bien été supprimée.</h4>"; 
 }
 /**************************** FIN SUPPRESSION D'UNE LIGNE *********************************** */
-
-
 
 
 /****************************** AFFICHAGE DU TABLEAU AVEC SESSION ********************************** */
@@ -127,13 +113,16 @@ if (!userConnect()) {
 
   $content .= "</table>";
 
-} else if  (!isset($_SESSION["commande"]) && userConnect()) {
+} else if (!isset($_SESSION["commande"]))  {
 
-  $content .= "<table>";
+  $content .= "<p class='apres_commande'>
+              <i class='fas fa-long-arrow-alt-right'></i> &nbsp;  <a href='contact.php'>Voir l'adresse Click & Collect</a>
+              <br> 
+              <i class='fas fa-long-arrow-alt-right'></i> &nbsp; <a href='paniersdumois.php'>Faire une commande </a>
+              <br> 
+              <i class='fas fa-long-arrow-alt-right'></i> &nbsp; <a href='index.php'> Retour à l'accueil </a>
+              </p>";
 
-  $content .= "<tr> <td> <a href='paniersdumois.php'> Découvrir les paniers du mois</a> </td> </tr>";
-
-  $content .= "</table>";
 
 } else if (isset($_SESSION["commande"]) ) {
 
@@ -157,6 +146,8 @@ if (!userConnect()) {
     $content .= "<td>" . $_SESSION["commande"]["prix_panier"][$i] . " &#128;" . "</td>";
     $content .= "<td>" . $_SESSION["commande"]["prix_panier"][$i] * $_SESSION["commande"]["quantite"][$i]  . " &#128;" . "</td>";
 
+
+
     /**************************** suppression d'une ligne de la commande $_GET *******************************/
     $content .= "<td>"
               . "<a href='?action=suppression_panier&id_panier="
@@ -170,7 +161,7 @@ if (!userConnect()) {
 
     
     /**************Calcul montant total de la commande**************/
-    $content .= "<tfoot> <tr> <td colspan=3> Montant de votre commande </td> <td colspan=2>"
+    $content .= "<tfoot> <tr> <td colspan=4> Montant de votre commande </td> <td>"
       . montant_total()
       . " &#128;"
       .  " </td> </tr> </tfoot>";
