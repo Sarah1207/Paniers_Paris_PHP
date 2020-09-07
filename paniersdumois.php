@@ -337,7 +337,9 @@ if (isset($_GET['id_panier'])  && $_GET['id_panier'] == "3") {
 </body>
 
 <script src="javascript/script_header.js"> </script>
-<script src="javascript/script_paniersdumois.js"></script>
+<script src="javascript/script_paniersdumois1.js"></script>
+<script src="javascript/script_paniersdumois2.js"></script>
+<script src="javascript/script_paniersdumois3.js"></script>
 <script src="javascript/script_footer.js"> </script>
-
+  
 </html>
