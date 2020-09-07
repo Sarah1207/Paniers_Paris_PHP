@@ -43,17 +43,19 @@
           <br><br>
 
           <!--MA COMMANDE-->
-          <?php
+           <?php
             /************ code pour afficher le nombre de produits au niveau du header ***********/
-
-            if (isset ($_SESSION["commande"]) ) {
-              for ($i = 0; $i < count($_SESSION["commande"]["id_panier"]); $i++) {
-                $quantite = $_SESSION["commande"]["quantite"][$i];
-              }
+           
+            if(isset($_SESSION["commande"]) ) {
+              $quantite = 0;
+              $q = $_SESSION["commande"]["quantite"];
+                foreach($q as $key=>$value) {
+                $quantite = $quantite + $value ;
+                } 
             } else if (!isset ($_SESSION["commande"])) {
               $quantite = "";
             }
-
+          
             if (isset($_POST["payer"])) {
             $quantite = "";
             }
