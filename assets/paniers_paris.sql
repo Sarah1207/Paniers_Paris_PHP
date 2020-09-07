@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : Dim 06 sep. 2020 à 12:14
+-- Généré le : lun. 07 sep. 2020 à 10:33
 -- Version du serveur :  10.4.14-MariaDB
 -- Version de PHP : 7.4.9
 
@@ -29,22 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `commande` (
   `id_commande` int(11) NOT NULL,
-  `id_membre` int(11) DEFAULT NULL,
-  `id_panier` int(11) NOT NULL,
+  `id_membre` int(3) NOT NULL,
+  `id_panier` int(3) NOT NULL,
   `quantite` int(11) NOT NULL,
-  `prix` int(11) NOT NULL
+  `prix` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `état` varchar(50) NOT NULL DEFAULT 'en cours de traitement'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `commande`
 --
 
-INSERT INTO `commande` (`id_commande`, `id_membre`, `id_panier`, `quantite`, `prix`) VALUES
-(4, NULL, 1, 2, 58),
-(5, NULL, 2, 1, 58),
-(6, NULL, 1, 2, 32),
-(7, NULL, 1, 2, 32),
-(8, NULL, 2, 3, 78);
+INSERT INTO `commande` (`id_commande`, `id_membre`, `id_panier`, `quantite`, `prix`, `date`, `état`) VALUES
+(65, 1, 2, 1, 26, '2020-09-07 10:27:30', 'en cours de traitement');
 
 -- --------------------------------------------------------
 
@@ -103,6 +101,13 @@ CREATE TABLE `membre` (
   `mdp` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `membre`
+--
+
+INSERT INTO `membre` (`id_membre`, `pseudo`, `prenom2`, `nom2`, `tel2`, `start2`, `adresse2`, `ville2`, `cp2`, `email2`, `mdp`) VALUES
+(1, 'test', 'Sarah', 'Hami', '0625805709', '12/10/1987', '3 rue henry monnier', 'Paris', 75009, 'sarah.h@hotmail.fr', '$2y$10$SGyID4pUKtEvi8Z9.KpFOuQFjtbpMZBN79VMHNpEKsEnUapZhUa4C');
+
 -- --------------------------------------------------------
 
 --
@@ -124,9 +129,9 @@ CREATE TABLE `paniers` (
 --
 
 INSERT INTO `paniers` (`id_panier`, `nom_panier`, `description_panier`, `prix_panier`, `Composition`, `poids_panier`, `stock`) VALUES
-(1, 'Panier Léger', '3 à 3.4 kg de fruits et légumes.\r\nIdéal pour les parisiens préssés.\r\nConvient pour une personne pour une semaine.', 16, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II | Banane Cat. II | Tomate ancienne Cat. II\r\n', 3.4, 150),
-(2, 'Panier Duo', '7 à 7.4 kg de fruits et légumes.\r\nIdéal pour cuisiner en amoureux.\r\nConvient pour deux personnes pour une semaine.', 26, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II | Tomate ancienne Cat. II | Banane Cat. II', 7, 150),
-(3, 'Panier Big', '8.5 à 9 kg de fruits et légumes.\r\nVotre famille vous remerciera.\r\nConvient pour quatre personnes pour une semaine.', 31, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II |  Brocoli Cat. NC | Tomate ancienne Cat. II | 	\r\nBanane Cat. II', 8.5, 150);
+(1, 'Panier Léger', '3 à 3.4 kg de fruits et légumes.\r\nIdéal pour les parisiens préssés.\r\nConvient pour une personne pour une semaine.', 16, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II | Banane Cat. II | Tomate ancienne Cat. II\r\n', 3.4, 130),
+(2, 'Panier Duo', '7 à 7.4 kg de fruits et légumes.\r\nIdéal pour cuisiner en amoureux.\r\nConvient pour deux personnes pour une semaine.', 26, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II | Tomate ancienne Cat. II | Banane Cat. II', 7, 99),
+(3, 'Panier Big', '8.5 à 9 kg de fruits et légumes.\r\nVotre famille vous remerciera.\r\nConvient pour quatre personnes pour une semaine.', 31, 'Pommes de terre Allouette Cal 38/60 | Carotte Cat. II | Courgette Cat. II |  Brocoli Cat. NC | Tomate ancienne Cat. II | 	\r\nBanane Cat. II', 8.5, 4);
 
 -- --------------------------------------------------------
 
@@ -227,7 +232,7 @@ ALTER TABLE `produits`
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_commande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT pour la table `detail_paniers`
@@ -239,7 +244,7 @@ ALTER TABLE `detail_paniers`
 -- AUTO_INCREMENT pour la table `membre`
 --
 ALTER TABLE `membre`
-  MODIFY `id_membre` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_membre` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `paniers`
